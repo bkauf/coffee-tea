@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    link(href='/stylesheets/style.css', rel='stylesheet')
+    script(src='/javascripts/jquery-3.2.1.min.js')
+    script(src='/javascripts/script.js')
+    title From: Test #{container}
+  body
+    #wrapper
+      #header
+        #header-right
+          img(src="/images/cloud-logo.svg")
+        #header-left
+          h1=title
+          h2  #{container}
+
+      #main
+        #action
+          div#status
+        #menu
+          ul
+
+            li
+              a(href="#health").health Get Health
+
+            li
+              a(href="#kill").kill Kill Container
+          br
+        #body
+          div
+          img(src="/images/coffee.jpg")
+          div
+            a(href="https://github.com/bkauf/gcpdemo") Source on Github
+            p Commit: #{commitID}
+            p Build: #{buildID}

@@ -1,0 +1,32 @@
+steps:
+- id: 'Rebuild Node Files'
+  name: 'gcr.io/cloud-builders/npm'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    echo '{ "commitID":"$COMMIT_SHA", "buildID":"$BUILD_ID"}' > buildDetails
+    npm install
+
+- id: 'Create Container'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/tea:$BUILD_ID', '.']
+  waitFor: ['Rebuild Node Files']
+
+- id: 'Push to GCR Container Registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$_IMAGE_REPO/tea:$BUILD_ID"]
+  waitFor: ['Create Container']
+
+# Push container to Google GKE
+- id: 'Deploy to GKE'
+  name: 'gcr.io/cloud-builders/kubectl'
+  waitFor: ['Push to GCR Container Registry']
+  args:
+  - 'set'
+  - 'image'
+  - 'deployment/frontend-tea'
+  - 'webserver=gcr.io/$_IMAGE_REPO/gcpdemo:$BUILD_ID'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLOUDSDK_COMPUTE_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLOUDSDK_CONTAINER_CLUSTER'
