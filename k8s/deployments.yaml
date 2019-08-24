@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: bkauf/coffee-tea:2.1
+        image: bkauf/coffee-tea:2.2
         imagePullPolicy: Always
         ports:
         - name: frontend-tea
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: bkauf/coffee-tea:2.1
+        image: bkauf/coffee-tea:2.2
         imagePullPolicy: Always
         ports:
         - name: frontend-coffee
