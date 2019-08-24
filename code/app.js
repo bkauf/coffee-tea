@@ -10,6 +10,8 @@ var bodyParser   = require('body-parser');
 
 /* pages */
 var index       = require('./routes/index');
+var coffee      = require('./routes/coffee');
+var tea         = require('./routes/tea');
 var health      = require('./routes/health');
 var kill        = require('./routes/kill');
 var loaderPage   = require('./routes/loaderio');
@@ -29,6 +31,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/coffee', coffee);
+app.use('/tea', tea);
 app.use('/health', health);
 app.use('/kill', kill);
 app.use('/loaderio-b1551541d32815292dec8c22ec8c1972', loaderPage);
