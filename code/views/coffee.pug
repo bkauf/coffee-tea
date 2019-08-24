@@ -1,17 +1,18 @@
 doctype html
+- var path = title;
 html
   head
-    link(href='/stylesheets/style.css', rel='stylesheet')
-    script(src='/javascripts/jquery-3.2.1.min.js')
-    script(src='/javascripts/script.js')
+    link(href='/'+path+'/stylesheets/style.css', rel='stylesheet')
+    script(src='/'+path+'/javascripts/jquery-3.2.1.min.js')
+    script(src='/'+path+'/javascripts/script.js')
     title From: Test #{container}
   body
     #wrapper
       #header
         #header-right
-          img(src="/images/cloud-logo.svg")
+          img(src='/'+path+'/images/cloud-logo.svg')
         #header-left
-          h1=title
+          h1= path
           h2  #{container}
 
       #main
@@ -21,15 +22,16 @@ html
           ul
 
             li
-              a(href="#health").health Get Health
+              a(href='#health').health Get Health
 
             li
-              a(href="#kill").kill Kill Container
+              a(href='#kill').kill Kill Container
           br
         #body
           div
-          img(src="/images/coffee.jpg")
+
+          img(src='/'+path+'/images/'+path+'.jpg')
           div
-            a(href="https://github.com/bkauf/coffee-tea") Source on Github
+            a(href='https://github.com/bkauf/coffee-tea') Source on Github
             p Commit: #{commitID}
             p Build: #{buildID}

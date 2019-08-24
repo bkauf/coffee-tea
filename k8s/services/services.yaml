@@ -42,7 +42,7 @@ spec:
   - match:
     - uri:
         prefix: /coffee
-    rewrite:
+    #rewrite:
       #uri: "/"
     route:
     - destination:

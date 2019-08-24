@@ -1,0 +1,77 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend-tea
+  namespace: drinks
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: frontend-tea
+  template:
+    metadata:
+      name: frontend-tea
+      labels:
+        app: frontend-tea
+    spec:
+      containers:
+      - name: webserver
+        image: bkauf/coffee-tea:2.1
+        imagePullPolicy: Always
+        ports:
+        - name: frontend-tea
+          containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 5
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend-coffee
+  namespace: drinks
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: frontend-coffee
+  template:
+    metadata:
+      name: frontend-coffee
+      labels:
+        app: frontend-coffee
+    spec:
+      containers:
+      - name: webserver
+        image: bkauf/coffee-tea:2.1
+        imagePullPolicy: Always
+        ports:
+        - name: frontend-coffee
+          containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 5
