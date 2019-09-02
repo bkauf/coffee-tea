@@ -49,6 +49,18 @@ spec:
         port:
           number: 80
         host: coffee.drinks.svc.cluster.local
+  - match:
+    - uri:
+        prefix: /coffee/kill
+    - uri:
+        prefix: /coffee/health
+    rewrite:
+      uri: '/'
+    route:
+    - destination:
+        port:
+          number: 80
+        host: coffee.drinks.svc.cluster.local
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
