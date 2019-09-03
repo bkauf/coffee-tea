@@ -7,7 +7,6 @@ RUN mkdir -p /usr/src/app
 #change working DIR
 WORKDIR /usr/src/app
 
-
 # Install app dependencies
 COPY package.json /usr/src/app
 
